@@ -1,0 +1,8 @@
+# Notes
+	[ ] Semicolon not comma after enum values
+	[ ] s
+	@ Jai Naming Conventions
+	[ ] Functions: lowercase_with_underscores
+	[ ] Types: PascalCase #except string, s32, etc.
+	[ ] Enum Name=Pascal_Case_With_Underscores Values=UPPERCASE_WITH_UNDERSCORES
+	[ ] 

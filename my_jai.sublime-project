@@ -1,0 +1,26 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": [
+				"build",
+			],
+		},
+		{
+			"name": "JaiModules",
+			"path": "/home/robbitay/my/programs/jai/modules",
+			"folder_include_patterns": [
+				"Compiler",
+				"Compiler",
+				"String",
+				"File",
+				"File_Utilities",
+				"Process",
+			],
+			"file_include_patterns": [
+				"*.jai",
+			],
+		},
+	]
+}
