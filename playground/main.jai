@@ -1,5 +1,6 @@
 
 #import "Basic";
+#import "Math";
 
 main :: ()
 {

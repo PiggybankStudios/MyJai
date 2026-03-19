@@ -1,8 +1,14 @@
+# TODO
+	[ ] How do we want to do vectors, matrices, rectangles, and quaternions? Should we modify Math module to our liking?
+
 # Notes
 	[ ] Semicolon not comma after enum values
-	[ ] s
+	[ ] Maybe we should make minimal edits and no re-ordering things in modules, but we can make edits as needed and then make additions or parallel behavior on our codebase however we want
+	[ ] 
+	
 	@ Jai Naming Conventions
 	[ ] Functions: lowercase_with_underscores
 	[ ] Types: PascalCase #except string, s32, etc.
 	[ ] Enum Name=Pascal_Case_With_Underscores Values=UPPERCASE_WITH_UNDERSCORES
-	[ ] 
+	[ ] Constants: UPPERCASE_WITH_UNDERSCORES
+	[ ] Variables/Members/Parameters: lowercase_with_underscores
