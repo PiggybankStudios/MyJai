@@ -111,12 +111,18 @@ draw_one_frame :: (dt: float) {
 	sidebar, content_rect := GetRect.cut_left(screen, sidebar_width);
 	update_cursor_pos();
 	
+	button_margin_x :: 0.05;
+	button_margin_y :: 0.25;
+	button_aspect_ratio :: 4 / 1;
 	label_theme: GetRect.Label_Theme;
 	label_theme.alignment = .Center;
-	left, rightplus := GetRect.cut_left(content_rect, content_rect.w*0.05);
-	right, middletall := GetRect.cut_right(rightplus, content_rect.w*0.05);
-	top, middleplus := GetRect.cut_top(middletall, content_rect.h*0.25);
-	bottom, middle := GetRect.cut_bottom(middleplus, content_rect.h*0.25);
+	middle := GetRect.shrink_y(GetRect.shrink_x(content_rect, content_rect.w*button_margin_x), content_rect.h*button_margin_y);
+	max_height := (middle.w / button_aspect_ratio);
+	if (middle.h > max_height)
+	{
+		middle.y = middle.y + (middle.h - max_height)/2;
+		middle.h = max_height;
+	}
 	// GetRect.label(middle, "Hello World!", *label_theme);
 	if (GetRect.button(middle, "Hello World!"))
 	{
