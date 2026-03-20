@@ -11,6 +11,8 @@
 	[ ] Semicolon not comma after enum values
 	[ ] Maybe we should make minimal edits and no re-ordering things in modules, but we can make edits as needed and then make additions or parallel behavior on our codebase however we want
 	[ ] Basic types: `bool` `s8` `s16` `s32` `s64` `u8` `u16` `u32` `u64` `float32` `float64` `string`
+	[ ] `#if` is followed by `else` or `else #if`
+	[ ] Ternary conditional operator is `ifx condition then true_value else false_value`
 	[ ] 
 	
 	@ Jai Naming Conventions

@@ -31,23 +31,11 @@ JaiTargetInfo :: struct
 BUILD_PLAYGROUND :: true;
 
 BUILD_TESTS :: false;
-RUN_TESTS   :: true;
+RUN_TESTS   :: false;
 
 
 SHOW_BUILD_TIME :: false;
 SHOW_LINK_LINE  :: false;
-
-// +--------------------------------------------------------------+
-// |                           Imports                            |
-// +--------------------------------------------------------------+
-Basic :: #import "Basic";
-Debug :: #import "Debug" (USE_GRAPHICS=false);
-#import "DebugOutput" (DEBUG_OUTPUT_ENABLED=DEBUG_BUILD);
-#import "Compiler";
-#import "String";
-#import "File";
-#import "File_Utilities";
-#import "Process";
 
 // +--------------------------------------------------------------+
 // |                         Build Script                         |
@@ -66,18 +54,18 @@ build :: ()
 	BUILD_ON_OS[Operating_System_Tag.LINUX] = BUILD_LINUX;
 	BUILD_ON_OS[Operating_System_Tag.MACOS] = BUILD_OSX;
 	
-	#if (RUN_TESTS && !BUILD_TESTS) { Basic.assert(false && "RUN_TESTS has no effect if BUILD_TESTS is disabled!"); }
+	#if (RUN_TESTS && !BUILD_TESTS) { assert(false && "RUN_TESTS has no effect if BUILD_TESTS is disabled!"); }
 	
-	for target: Basic.enum_values_as_enum(My_Jai_Targets)
+	for target: enum_values_as_enum(My_Jai_Targets)
 	{
 		if (target < My_Jai_Targets.COUNT && TARGETS[target].build)
 		{
-			for targetOS: Basic.enum_values_as_enum(Operating_System_Tag)
+			for targetOS: enum_values_as_enum(Operating_System_Tag)
 			{
 				if (BUILD_ON_OS[targetOS])
 				{
 					printline_d("Building % for %%...", target, targetOS, ifx DEBUG_BUILD then " (DEBUG)" else "");
-					ws : Workspace = compiler_create_workspace(Basic.sprint("% Workspace (%)", target, targetOS));
+					ws : Workspace = compiler_create_workspace(sprint("% Workspace (%)", target, targetOS));
 					
 					wsOps : Build_Options = get_build_options(ws);
 					{
@@ -90,8 +78,8 @@ build :: ()
 						}
 						else
 						{
-							wsOps.output_path = Basic.sprint("build/%", targetOS);
-							wsOps.intermediate_path = Basic.sprint("build/%", targetOS);
+							wsOps.output_path = sprint("build/%", targetOS);
+							wsOps.intermediate_path = sprint("build/%", targetOS);
 							wsOps.output_type = .OBJECT_FILE; //TODO: It seems we can't actually link a binary executable for other platforms currently?
 						}
 						wsOps.output_executable_name = TARGETS[target].exe_name;
@@ -102,14 +90,14 @@ build :: ()
 						if (SHOW_LINK_LINE) { wsOps.text_output_flags |= .OUTPUT_LINK_LINE; }
 						if (SHOW_BUILD_TIME) { wsOps.text_output_flags |= .OUTPUT_TIMING_INFO; }
 						importDirs : [..]string;
-						Basic.array_add(*importDirs, "core/");
-						for wsOps.import_path { Basic.array_add(*importDirs, it); }
+						array_add(*importDirs, "core/");
+						for wsOps.import_path { array_add(*importDirs, it); }
 						wsOps.import_path = importDirs;
 					}
 					set_build_options(wsOps, ws);
 					
 					add_build_file(TARGETS[target].path, ws);
-					if (target == .TESTS && RUN_TESTS) { add_build_string("#run main();", ws); }
+					if (target == .TESTS && RUN_TESTS && targetOS == OS) { add_build_string("#run main();", ws); }
 				}
 			}
 		}
@@ -119,3 +107,23 @@ build :: ()
 }
 
 #run build();
+
+// +--------------------------------------------------------------+
+// |                           Imports                            |
+// +--------------------------------------------------------------+
+#scope_file
+
+Basic :: #import "Basic";
+assert :: Basic.assert;
+sprint :: Basic.sprint;
+enum_values_as_enum :: Basic.enum_values_as_enum;
+array_add :: Basic.array_add;
+
+Debug :: #import "Debug" (USE_GRAPHICS=true);
+#import "DebugOutput" (DEBUG_OUTPUT_ENABLED=DEBUG_BUILD);
+
+#import "Compiler";
+#import "String";
+#import "File";
+#import "File_Utilities";
+#import "Process";
