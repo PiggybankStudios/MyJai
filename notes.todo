@@ -1,9 +1,16 @@
 # TODO
-	[ ] How do we want to do vectors, matrices, rectangles, and quaternions? Should we modify Math module to our liking?
+	[X] How do we want to do vectors, matrices, rectangles, and quaternions? Should we modify Math module to our liking?
+	[X] Make vectors generic
+	[ ] Add Rectangles
+	[ ] Add Boxes
+	[ ] Can we upgrade the syntax for JaiTools package to handle more scenarios? For example #discard in function parameters
+	[ ] Update my compiler output regex to match Jai errors
+	[ ] 
 
 # Notes
 	[ ] Semicolon not comma after enum values
 	[ ] Maybe we should make minimal edits and no re-ordering things in modules, but we can make edits as needed and then make additions or parallel behavior on our codebase however we want
+	[ ] Basic types: `bool` `s8` `s16` `s32` `s64` `u8` `u16` `u32` `u64` `float32` `float64` `string`
 	[ ] 
 	
 	@ Jai Naming Conventions
